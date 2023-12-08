@@ -1,39 +1,43 @@
-<?php 
-require 'funciones/funciones.php'; 
-
+<?php
+require 'funciones/funciones.php';
 $mensajesRecibidos = obtenerMensajesRecibidos();
 
-?>
-<!DOCTYPE html>
-<html lang="es">
+include 'includes/header.php';
 
-<head>
-    <title>Mensajes Recibidos</title>
-    <meta charset="UTF-8">
-    <meta name="author" content="Cristian Castro">
-    <meta name="description" content="Mensajes Recibidos">
-</head>
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header("Location: login.php");
+    exit;
+}
+?>
 
 <body>
-    <h1>Mensajes Recibidos</h1>
-    <?php if (empty($mensajesRecibidos)) : ?>
-        <p>No hay mensajes recibidos.</p>
-    <?php else : ?>
-        <table border="1">
-            <tr>
-                <th>Remitente</th>
-                <th>Contenido</th>
-                <th>Fecha de Envío</th>
-            </tr>
-            <?php foreach ($mensajesRecibidos as $mensaje) : ?>
-                <tr>
-                    <td><?= $mensaje[0] ?></td>
-                    <td><?= $mensaje[3] ?></td>
-                    <td><?= $mensaje[4] ?></td>
-                </tr>
-            <?php endforeach; ?>
-        </table>
-    <?php endif; ?>
+    <div class="container mt-5">
+        <h1 class="mb-4">Mensajes Recibidos</h1>
+        <?php if (empty($mensajesRecibidos)) : ?>
+            <p>No hay mensajes recibidos.</p>
+        <?php else : ?>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Remitente</th>
+                            <th>Contenido</th>
+                            <th>Fecha de Envío</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($mensajesRecibidos as $mensaje) : ?>
+                            <tr>
+                                <td><?= $mensaje[0] ?></td>
+                                <td><?= $mensaje[3] ?></td>
+                                <td><?= $mensaje[4] ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php endif; ?>
+    </div>
 </body>
-
 </html>

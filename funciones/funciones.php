@@ -1,9 +1,36 @@
 <?php
 
-function obtenerMensajesRecibidos() {
+function obtenerMensajesEnviados(){
     session_start();
 
-    //mesajes recibidos
+    // Verificar si el usuario está autenticado
+    if (!isset($_SESSION['id_usuario'])) {
+        header("Location: login.php"); // Redirigir a la página de inicio de sesión si no está autenticado
+        exit;
+    }
+
+    // Obtener ID de usuario
+    $idUsuario = $_SESSION['id_usuario'];
+
+    // Leer mensajes enviados desde el archivo
+    $mensajesCSV = fopen(__DIR__ . '/../mensajes_aula_virtual.csv', 'r');
+
+    $mensajesEnviados = [];
+    while (($mensajeData = fgetcsv($mensajesCSV)) !== FALSE) {
+        if ($mensajeData[0] == $idUsuario) {
+            $mensajesEnviados[] = $mensajeData;
+        }
+    }
+
+    fclose($mensajesCSV);
+
+    return $mensajesEnviados;
+}
+
+
+function obtenerMensajesRecibidos(){
+    session_start();
+
     // Verificar si el usuario está autenticado
     if (!isset($_SESSION['id_usuario'])) {
         header("Location: login.php"); // Redirigir a la página de inicio de sesión si no está autenticado
@@ -14,7 +41,7 @@ function obtenerMensajesRecibidos() {
     $idUsuario = $_SESSION['id_usuario'];
 
     // Leer mensajes recibidos desde el archivo
-    $mensajesCSV = fopen(__DIR__ . '/mensajes_aula_virtual.csv', 'r');
+    $mensajesCSV = fopen(__DIR__ . '/../mensajes_aula_virtual.csv', 'r');
 
     $mensajesRecibidos = [];
     while (($mensajeData = fgetcsv($mensajesCSV)) !== FALSE) {
@@ -27,6 +54,9 @@ function obtenerMensajesRecibidos() {
 
     return $mensajesRecibidos;
 }
+
+
+
 
 //funciones del login
 function limpiarDatos($dato){
