@@ -33,6 +33,11 @@
 
                 <!-- Contenido de la barra de navegación -->
                 <div class="collapse navbar-collapse" id="navbarNav">
+                    <!-- Bienvenido Paul, Alumno a la izquierda en dispositivos pequeños -->
+                    <span class="navbar-text d-block d-lg-none">
+                        Bienvenido <?= $_SESSION['nombre'] ?>, <?= $_SESSION['perfil'] ?>
+                    </span>
+
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="mensajes_enviados.php">Mensajes enviados</a>
@@ -46,14 +51,14 @@
                         </li>
                     </ul>
 
-                    <!-- Bienvenido, Paul, Alumno a la derecha -->
-                    <span class="navbar-text ml-auto">
-                        Bienvenido, <?= $_SESSION['nombre'] ?>, <?= $_SESSION['perfil'] ?>
+                    <!-- Bienvenido Paul, Alumno a la derecha en dispositivos grandes -->
+                    <span class="navbar-text ml-auto d-none d-lg-block">
+                        Bienvenido <?= $_SESSION['nombre'] ?>, <?= $_SESSION['perfil'] ?>
                     </span>
                 </div>
             <?php else : ?>
                 <!-- Logo -->
-                <a class="navbar-brand" href="#"><img src="img/logo.png" alt="Logo" height="30"></a>
+                <img src="img/logo.png" alt="Logo" height="30">
 
                 <!-- Botón de colapso para dispositivos pequeños -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -72,7 +77,5 @@
         </div>
     </nav>
 </header>
-
-<!-- Resto de tu contenido HTML -->
 
 </html>

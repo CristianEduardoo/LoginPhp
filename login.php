@@ -1,5 +1,13 @@
 <?php
 session_start();
+
+// Cerrar sesión (logout)
+if (isset($_GET['logout'])) {
+    session_destroy(); //destruye todas las variables de sesión, lo que efectivamente cierra la sesión del usuario.
+    header("Location: {$_SERVER['PHP_SELF']}"); //redirige al usuario de nuevo a la misma página
+    exit;
+}
+
 require 'funciones/funciones.php';
 
 $mostrarFormulario = true; // Variable para controlar la visibilidad del formulario 
@@ -26,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Abrir el archivo CSV de usuarios
-    $usuariosCSV = fopen(__DIR__ . '/users_aula_virtual.csv', 'r'); //abrimos el archivos CSV de usuarios
+    $usuariosCSV = fopen(__DIR__ . '/users_aula_virtual.csv', 'r');
 
     // Procesar el archivo CSV de usuarios
     if ($usuariosCSV) {
@@ -81,13 +89,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 if (isset($_SESSION['id_usuario'])) {
     $mostrarFormulario = false;
     $mensaje = "<p style='color:blue;'>{$_SESSION['nombre']}<br>{$_SESSION['perfil']}</p>";
-}
-
-// Cerrar sesión (logout)
-if (isset($_GET['logout'])) {
-    session_destroy(); //destruye todas las variables de sesión, lo que efectivamente cierra la sesión del usuario.
-    header("Location: {$_SERVER['PHP_SELF']}"); //redirige al usuario de nuevo a la misma página
-    exit;
 }
 
 include 'includes/header.php';
