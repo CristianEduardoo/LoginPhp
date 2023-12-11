@@ -103,7 +103,7 @@ include 'includes/header.php';
                     <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST">
                         <div class="form-group">
                             <label for="nombre">Email</label>
-                            <input id="nombre" type="text" name="usuario" class="form-control">
+                            <input id="nombre" type="text" name="usuario" class="form-control" value="<?= isset($nombreUsuario) ? $nombreUsuario : '' ?>">
                         </div>
 
                         <div class="form-group">
@@ -124,7 +124,8 @@ include 'includes/header.php';
 <?php
 // Mostrar mensajes de error
 foreach ($errores as $error) {
-    echo "<p style='color:red;'>$error</p>";
+    echo "<div class='alert alert-danger'>$error</div>";
+    //echo "<p style='color:red;'>$error</p>";
 }
 ?>
 
